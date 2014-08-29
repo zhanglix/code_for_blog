@@ -62,8 +62,6 @@ TEST_P(BinarySearchTest, AbnormalCases) {
   EXPECT_EQ(expected, bs(first, last, x));
 }
 
-
-
 const int* binarySearch(const int *first, const int *last, int x) {
   if (first == NULL || last == NULL || last < first) return NULL;
   const int *low = first;
@@ -79,6 +77,28 @@ const int* binarySearch(const int *first, const int *last, int x) {
   return (high != last && x == *high) ? high : NULL;
 }
 
-INSTANTIATE_TEST_CASE_P(instance,
+const int* binarySearchBuggy(const int *first, const int *last, int x) {
+  if (first == NULL || last == NULL || last < first) return NULL;
+  const int *low = first;
+  const int *high = last - 1;
+  while (low < high) {
+    const int * mid = low + (high - low) / 2;
+    if (*mid > x) {
+      high = mid;
+    }else if(*mid == x) {
+      if (*(mid-1) < x) {return mid;}
+      high = mid;
+    }else {
+      low = mid;
+    }
+  }
+  return (*high == x) ? high : NULL;
+}
+
+INSTANTIATE_TEST_CASE_P(normal,
                         BinarySearchTest,
                         ::testing::Values(binarySearch));
+INSTANTIATE_TEST_CASE_P(buggy,
+                        BinarySearchTest,
+                        ::testing::Values(binarySearchBuggy));
+

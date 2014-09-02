@@ -63,7 +63,7 @@ TEST_P(BinarySearchTest, AbnormalCases) {
 }
 
 const int* binarySearch(const int *first, const int *last, int x) {
-  if (first == NULL || last == NULL || last < first) return NULL;
+  if (first == NULL || last == NULL) return NULL;
   const int *low = first;
   const int *high = last;
   while (low < high) {

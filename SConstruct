@@ -14,6 +14,7 @@ def run_test(env, target, source):
         raise  "Sorry! Not Implemented for Windows Yet!"
     cmd = "/usr/bin/env %s=%s " % (ld_path_name, env['ENV']['LIB'])
     cmd += str(source[0].abspath)
+    print cmd
     ret =  os.system(cmd);
     if ret == 0:
         os.system("echo Success! > " + target[0].abspath)

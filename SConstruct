@@ -29,19 +29,25 @@ def UnitTest(env, *nargs, **kwargs):
     ret = [];
     for cmd in targets:
         t = str(cmd) + ".report";
+        a_cmd = "check_" + str(cmd);
         test = env.runUnitTest(t, cmd)
-        env.Alias('check', test)
+        env.Alias(a_cmd, test)
+        env.Alias('check', a_cmd)
         ret.append(t);
     AlwaysBuild(ret);
     Default(targets);
     return ret
 env.AddMethod(UnitTest, 'UnitTest');
 
-env.PrependUnique(CCFLAGS=['-g', '-I/Users/j/include']);
+env.PrependUnique(CCFLAGS=['-g', '-std=c++0x', '-I/Users/j/include']);
 env.AppendENVPath('LIB', '/Users/j/lib')
-env.UnitTest(target = 'binarySearchTest', 
-             source = 'binarySearchTest.cpp',
-             LIBS=['gtest_main', 'gtest'], 
+env.UnitTest(target = 'binary_search_test', 
+             source = 'binary_search_test.cpp',
+             LIBS=['gtest_main', 'gtest', 'pthread'], 
              LIBPATH=["/Users/j/lib"])
 
+env.UnitTest(target = 'tokenizer_bb_test',
+             source = ['tokenizer_bb_test.cpp' , 'tokenizer.cpp'],
+             LIBS=['gtest_main', 'gmock', 'gtest', 'pthread'], 
+             LIBPATH=["/Users/j/lib"])
 

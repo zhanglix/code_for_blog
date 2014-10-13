@@ -8,15 +8,13 @@ class Tokenizer {
 public:
   Tokenizer(char delimiter = ' ', 
 	    bool filterEmptySegs = false, 
-	    bool escape = false) : _delimiter(delimiter),
-				   _filterEmptySegs(filterEmptySegs),
-				   _escape(escape){ }
+	    bool escape = false);
   std::vector<std::string> tokenize(const std::string &str);
 
 private:
   char _delimiter;
   bool _filterEmptySegs;
-  bool _escape;
+  char _escape;
 
 private:
   size_t processCurrentSegment(const std::string&str, size_t start, 

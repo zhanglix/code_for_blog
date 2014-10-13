@@ -55,11 +55,28 @@ TEST_F(TokenizerBBTest, EscapeNoFilterNoEscape) {
 
 TEST_F(TokenizerBBTest, EscapeNoFilterEscape) {
   Tokenizer tokenizer('\\',false, true);
-  EXPECT_THAT(tokenizer.tokenize("\\\\\\e"), ElementsAre("","e"));
+  //the escape charater will be changed to '/' when the delimiter is '\'
+  EXPECT_THAT(tokenizer.tokenize("s\\\\o\\a"), 
+	      ElementsAre("s","","o","a"));
 }
 
 TEST_F(TokenizerBBTest, EscapeFilterEscape) {
   Tokenizer tokenizer('\\',true, true);
   EXPECT_THAT(tokenizer.tokenize("\\\\,,"), ElementsAre(",,"));
-  EXPECT_THAT(tokenizer.tokenize("ss\\\\\\e"), ElementsAre("ss","e"));
+  EXPECT_THAT(tokenizer.tokenize("ss/\\\\/\\e"), ElementsAre("ss\\","\\e"));
+  EXPECT_THAT(tokenizer.tokenize("s/\\//o\\a"), 
+	      ElementsAre("s\\/o","a"));
+}
+
+TEST_F(TokenizerBBTest, WithZeroBytes) {
+  Tokenizer tokenizer(',',true, true);
+  const char buffer[] = "a\0""c,\0,def\\,\0"",";
+  string input(buffer, sizeof(buffer));
+  string zero = string(1, '\0');
+  vector<string> expected;
+  expected.push_back(string(buffer,3));//"a\0c"
+  expected.push_back(zero);//"\0"
+  expected.push_back(string("def,\0",5));//"def,\0"
+  expected.push_back(zero);//"\0"
+  EXPECT_THAT(tokenizer.tokenize(input), ContainerEq(expected));
 }

@@ -2,6 +2,18 @@
 #include <assert.h>
 
 using namespace std;
+
+Tokenizer::Tokenizer(char delimiter, bool filterEmptySegs, bool escape) 
+  : _delimiter(delimiter),
+    _filterEmptySegs(filterEmptySegs)
+{ 
+  if (escape) {
+    _escape =  ('\\' != _delimiter) ? '\\' : '/';
+  } else {
+    _escape = '\0';
+  }
+}
+
 vector<string> Tokenizer::tokenize(const std::string &str) {
   vector<string> result;
   size_t startOfSegment = 0;
@@ -24,15 +36,11 @@ size_t Tokenizer::processCurrentSegment(const string&str, size_t start,
   bool escapeMode = false;
   for(;pos < end; pos++) {
     char c = str[pos];
-    if (_escape && c == '\\') {
-      if(escapeMode) {
-	escapeMode = false;
-      } else {
-	escapeMode = true;
-	continue;
-      }
+    if (_escape == c && !escapeMode) {
+      escapeMode = true;
+      continue;
     }
-    if (escapeMode || c != _delimiter) {
+    if (c != _delimiter || escapeMode) {
       escapeMode = false;
       buffer[bufferIndex++] = c;
     } else {

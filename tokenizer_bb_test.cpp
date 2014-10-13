@@ -8,7 +8,6 @@ using namespace testing;
 class TokenizerBBTest: public Test {
 };
 
-//input splits
 TEST_F(TokenizerBBTest, defaultSetting) {
   Tokenizer tokenizer; 
   EXPECT_THAT(tokenizer.tokenize(""),

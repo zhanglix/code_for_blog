@@ -26,6 +26,13 @@ TEST_F(TokenizerBBTest, CommaNoFilterNoEscape) {
 	      ElementsAre("some normal string"));
 }
 
+TEST_F(TokenizerBBTest, CommaFilterNoEscape) {
+  Tokenizer tokenizer(',', true); 
+  EXPECT_THAT(tokenizer.tokenize(""), ElementsAre());
+  EXPECT_THAT(tokenizer.tokenize(","), ElementsAre());
+  EXPECT_THAT(tokenizer.tokenize("\\,,"), ElementsAre("\\"));
+}
+
 TEST_F(TokenizerBBTest, CommaNoFilterEscape) {
   Tokenizer tokenizer(',', false, true); 
   EXPECT_THAT(tokenizer.tokenize("\\,,"), ElementsAre(",", ""));
@@ -37,13 +44,6 @@ TEST_F(TokenizerBBTest, CommaFilterEscape) {
   EXPECT_THAT(tokenizer.tokenize("s,\\\\,"), ElementsAre("s", "\\"));
   EXPECT_THAT(tokenizer.tokenize(",\\,,"), ElementsAre(","));
   EXPECT_THAT(tokenizer.tokenize("\\,\\,"), ElementsAre(",,"));
-}
-
-TEST_F(TokenizerBBTest, CommaFilterNoEscape) {
-  Tokenizer tokenizer(',', true); 
-  EXPECT_THAT(tokenizer.tokenize(""), ElementsAre());
-  EXPECT_THAT(tokenizer.tokenize(","), ElementsAre());
-  EXPECT_THAT(tokenizer.tokenize("\\,,"), ElementsAre("\\"));
 }
 
 TEST_F(TokenizerBBTest, EscapeNoFilterNoEscape) {
@@ -70,7 +70,7 @@ TEST_F(TokenizerBBTest, EscapeFilterEscape) {
 TEST_F(TokenizerBBTest, WithZeroBytes) {
   Tokenizer tokenizer(',',true, true);
   const char buffer[] = "a\0""c,\0,def\\,\0"",";
-  string input(buffer, sizeof(buffer));
+  const string input(buffer, sizeof(buffer));
   string zero = string(1, '\0');
   vector<string> expected;
   expected.push_back(string(buffer,3));//"a\0c"

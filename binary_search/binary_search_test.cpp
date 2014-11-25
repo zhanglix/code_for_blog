@@ -98,7 +98,7 @@ const int* binarySearchBuggy(const int *first, const int *last, int x) {
 INSTANTIATE_TEST_CASE_P(normal,
                         BinarySearchTest,
                         ::testing::Values(binarySearch));
-INSTANTIATE_TEST_CASE_P(buggy,
-                        BinarySearchTest,
-                        ::testing::Values(binarySearchBuggy));
+// INSTANTIATE_TEST_CASE_P(buggy,
+//                         BinarySearchTest,
+//                         ::testing::Values(binarySearchBuggy));
 

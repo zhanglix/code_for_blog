@@ -39,15 +39,12 @@ def UnitTest(env, *nargs, **kwargs):
     return ret
 env.AddMethod(UnitTest, 'UnitTest');
 
-env.PrependUnique(CCFLAGS=['-g', '-std=c++0x', '-I/Users/j/include']);
-env.AppendENVPath('LIB', '/Users/j/lib')
-env.UnitTest(target = 'binary_search_test', 
-             source = 'binary_search_test.cpp',
-             LIBS=['gtest_main', 'gtest', 'pthread'], 
-             LIBPATH=["/Users/j/lib"])
+env.PrependUnique(CCFLAGS=['-g', '-std=c++0x'])
+env.AppendUnique(CCFLAGS=['-I/Users/j/include']); #just for my mac :)
+env.AppendENVPath('LIB', '/Users/j/lib') #just for my mac :)
 
-env.UnitTest(target = 'tokenizer_bb_test',
-             source = ['tokenizer_bb_test.cpp' , 'tokenizer.cpp'],
-             LIBS=['gtest_main', 'gmock', 'gtest', 'pthread'], 
-             LIBPATH=["/Users/j/lib"])
+Export('env')
+
+SConscript('SConscript', variant_dir='build')
+
 

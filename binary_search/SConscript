@@ -1,0 +1,7 @@
+Import('env')
+env = env.Clone()
+env.UnitTest(target = 'binary_search_test', 
+             source = 'binary_search_test.cpp',
+             LIBS=['gtest_main', 'gtest', 'pthread']
+             )
+

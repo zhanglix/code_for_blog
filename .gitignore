@@ -26,3 +26,6 @@
 
 .*
 *~
+
+# Build dir
+build/

@@ -3,7 +3,9 @@ env = env.Clone()
 
 SConscript(['binary_search/SConscript',
             'tokenizer/SConscript',
-            'mock/SConscript']
+            'mock/SConscript',
+            'fake/SConscript',
+            ]
 	    )
 
 

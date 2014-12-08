@@ -43,6 +43,7 @@ env.PrependUnique(CCFLAGS=['-g', '-std=c++0x'])
 env.AppendUnique(CCFLAGS=['-I/Users/j/include']); #just for my mac :)
 env.AppendENVPath('LIB', '/Users/j/lib') #just for my mac :)
 
+env['gmock_libs'] =['gtest_main', 'gmock', 'gtest', 'pthread']
 Export('env')
 
 SConscript('SConscript', variant_dir='build')

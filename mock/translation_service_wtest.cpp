@@ -51,7 +51,7 @@ TEST_F(TranslationServiceWTest, english) {
 }
 
 
-TEST_F(TranslationServiceWTest, japanese) {
+TEST_F(TranslationServiceWTest, japanese) {//duplicated case
   EXPECT_CALL(*_mockDetector, detect(_input))             
     .WillOnce(Return(LID_JAPANESE));
   EXPECT_CALL(*_mockJapTranslator, translate(_input))             
@@ -61,9 +61,9 @@ TEST_F(TranslationServiceWTest, japanese) {
   EXPECT_EQ(_expected, _output);
 }
 
-TEST_F(TranslationServiceWTest, korean) {
+TEST_F(TranslationServiceWTest, korean) {//duplicated case
   EXPECT_CALL(*_mockDetector, detect(_input))             
-    .WillOnce(Return(LID_ENGLISH));
+    .WillOnce(Return(LID_KOREAN));
   EXPECT_CALL(*_mockKoreanTranslator, translate(_input))             
     .WillOnce(Return(_expected));
   
@@ -82,5 +82,17 @@ TEST_F(TranslationServiceWTest, unknow) {
   EXPECT_CALL(*_mockDetector, detect(_input))             
     .WillOnce(Return(LID_UNKNOWN));
   EXPECT_FALSE(_service->translateToChinese(_input, _output));
-  EXPECT_EQ("unknow language", _output);
+  EXPECT_EQ("Sorry! I can't understand this language.", _output);
+}
+
+TEST_F(TranslationServiceWTest, noSuchTranslator) {
+  EXPECT_CALL(*_mockDetector, detect(_input))             
+    .WillOnce(Return(LID_RUSSIAN));
+  EXPECT_FALSE(_service->translateToChinese(_input, _output));
+  EXPECT_EQ("Sorry! I can't understand this language.", _output);
+}
+
+TEST_F(TranslationServiceWTest, empty) {
+  EXPECT_TRUE(_service->translateToChinese("", _output));
+  EXPECT_EQ("", _output);
 }

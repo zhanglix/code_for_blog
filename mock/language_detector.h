@@ -7,11 +7,12 @@ enum LanguageID {
   LID_CHINESE,
   LID_ENGLISH,
   LID_JAPANESE,
-  LID_KOREAN  
+  LID_KOREAN,
+  LID_RUSSIAN
 };
 
 class LanguageDetector {
 public:
-  virtual ~LanguageDetector();
+  virtual ~LanguageDetector(){}
   virtual LanguageID detect(const std::string& text) = 0;
 };

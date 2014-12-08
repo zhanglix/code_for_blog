@@ -4,6 +4,6 @@
 
 class Translator {
 public:
-  virtual ~Translator();
+  virtual ~Translator(){}
   virtual std::string translate(const std::string &text) = 0;
 };

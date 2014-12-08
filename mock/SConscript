@@ -2,6 +2,14 @@ Import('env')
 env = env.Clone()
 
 env.UnitTest(target = 'translation_service_wtest',
-             source = ['translation_service_wtest.cpp'],
-             LIBS=['gtest_main', 'gmock', 'gtest', 'pthread']
+             source = ['translation_service_wtest.cpp', 
+                       'translation_service_imp.cpp'],
+             LIBS=env['gmock_libs']
              )
+
+env.UnitTest(target = 'simple_mail_storage_wtest',
+             source = ['simple_mail_storage_wtest.cpp',
+                       'simple_mail_storage.cpp'],
+             LIBS=env['gmock_libs']
+             )
+

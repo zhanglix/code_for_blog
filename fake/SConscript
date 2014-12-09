@@ -1,8 +1,11 @@
 Import('env')
 env = env.Clone()
 
-env.UnitTest(target = 'and_doc_list_wtest',
-             source = ['and_doc_list_wtest.cpp',
+env.UnitTest(target = 'and_doc_list_btest',
+             source = ['and_doc_list_btest.cpp',
+                       'fake_doc_list_btest.cpp',
+                       'fake_doc_list.cpp',
+                       'doc_list.cpp',
                        'and_doc_list.cpp'],
              LIBS=env['gmock_libs']
              )

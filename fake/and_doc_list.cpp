@@ -13,12 +13,12 @@ AndDocList::~AndDocList() {
   }
 }
 
-doc_id_t AndDocList::next(doc_id_t id) {
+doc_id_t AndDocList::seek(doc_id_t id) {
   assert(id >= 0);
   doc_id_t lastId = id;
   vector<DocList*>::iterator it = _children.begin();
   while (it != _children.end()) {
-    doc_id_t nextId = (*it)->next(lastId);
+    doc_id_t nextId = (*it)->seek(lastId);
     if (nextId == lastId) {
       it++;
     } else if (nextId != DocList::INVALID_DOC_ID) {

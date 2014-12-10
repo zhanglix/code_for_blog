@@ -16,7 +16,7 @@ FakeDocList::FakeDocList(doc_id_t first, doc_id_t last, doc_id_t step) {
 
 FakeDocList::~FakeDocList() {}
 
-doc_id_t FakeDocList::next(doc_id_t id) {
+doc_id_t FakeDocList::seek(doc_id_t id) {
   assert(id >= 0);
   for (; _it != _docIds.end(); _it ++) {
     if (*_it >= id) {

@@ -8,7 +8,7 @@ public:
   FakeDocList(const std::vector<doc_id_t> &docidVector);
   FakeDocList(doc_id_t first, doc_id_t last, doc_id_t step);
   virtual ~FakeDocList();
-  virtual doc_id_t next(doc_id_t id);
+  virtual doc_id_t seek(doc_id_t id);
 private:
   void reset(const std::vector<doc_id_t> &docidVector);
 

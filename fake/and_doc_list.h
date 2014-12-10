@@ -7,7 +7,7 @@ class AndDocList : public DocList {
 public:
   AndDocList();
   virtual ~AndDocList();
-  doc_id_t next(doc_id_t id);
+  doc_id_t seek(doc_id_t id);
 
   void addDocList(DocList * docList);
   size_t size();

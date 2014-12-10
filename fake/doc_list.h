@@ -10,7 +10,7 @@ public:
   //return: the doc id found or INVALID_DOC_ID if no such doc id found
   //precondition: id >= 0
   //side effect: current doc id will be set accordingly
-  virtual doc_id_t next(doc_id_t id) = 0;
+  virtual doc_id_t seek(doc_id_t id) = 0;
 
   static const doc_id_t INVALID_DOC_ID;
 };

@@ -1,8 +1,10 @@
 Import('env')
 env = env.Clone()
 
-env.UnitTest(target = 'and_doc_list_btest',
+env.UnitTest(target = 'boolean_retrieval_test',
              source = ['and_doc_list_btest.cpp',
+#                       'or_doc_list_btest.cpp',
+#                       'ant_not_doc_list_btest.cpp',
                        'fake_doc_list_btest.cpp',
                        'fake_doc_list.cpp',
                        'doc_list.cpp',

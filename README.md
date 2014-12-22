@@ -1,6 +1,4 @@
 code_for_blog
 =============
 
-simple codes for my blog
-
-test
+https://github.com/zhanglix/code_for_blog/wiki
